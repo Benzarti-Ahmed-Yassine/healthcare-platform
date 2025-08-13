@@ -1,0 +1,16 @@
+{
+  "name": "healthcare-platform",
+  "version": "1.0.0",
+  "description": "## Overview A decentralized platform for secure medical record management, cold chain traceability, and patient consent management using Hedera Hashgraph.",
+  "main": "createTopics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hashgraph/sdk": "^2.70.0",
+    "dotenv": "^17.2.1"
+  }
+}

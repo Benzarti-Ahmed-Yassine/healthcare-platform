@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - NEXT_PUBLIC_RECORD_CONTRACT_ADDRESS=${NEXT_PUBLIC_RECORD_CONTRACT_ADDRESS}
+      - NEXT_PUBLIC_CONSENT_CONTRACT_ADDRESS=${NEXT_PUBLIC_CONSENT_CONTRACT_ADDRESS}
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    ports:
+      - '3001:3001'
+    environment:
+      - MY_ACCOUNT_ID=${MY_ACCOUNT_ID}
+      - MY_PRIVATE_KEY=${MY_PRIVATE_KEY}
+      - MEDICAL_RECORD_TOPIC_ID=${MEDICAL_RECORD_TOPIC_ID}
+      - COLD_CHAIN_TOPIC_ID=${COLD_CHAIN_TOPIC_ID}
+      - CONSENT_TOPIC_ID=${CONSENT_TOPIC_ID}
