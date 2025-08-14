@@ -1,0 +1,34 @@
+{
+  "name": "healthcare-security-monitor",
+  "version": "1.0.0",
+  "description": "Security monitoring service for Healthcare Platform",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "security-audit": "npm audit && npm audit fix"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0",
+    "winston": "^3.11.0",
+    "axios": "^1.6.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "security",
+    "monitoring",
+    "healthcare",
+    "threat-detection"
+  ],
+  "author": "Healthcare Platform Team",
+  "license": "MIT"
+}

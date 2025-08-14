@@ -1,0 +1,29 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      timeInterval: "15s"
+      queryTimeout: "60s"
+      httpMethod: "POST"
+
+  - name: MongoDB
+    type: mongodb
+    access: proxy
+    url: mongodb://admin:secure_password_123@mongo:27017/healthcare-platform
+    isDefault: false
+    editable: true
+    jsonData:
+      tlsSkipVerify: true
+
+  - name: Redis
+    type: redis
+    access: proxy
+    url: redis://:secure_redis_password_123@redis:6379
+    isDefault: false
+    editable: true

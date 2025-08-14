@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Protected } from '../providers/AuthProvider';
 
 export default function HealthcarePage() {
   const [activeTab, setActiveTab] = useState('patients');
@@ -159,6 +160,7 @@ export default function HealthcarePage() {
   );
 
   return (
+    <Protected allowedRoles={["doctor","hospital"]}>
     <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 p-6">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto mb-8">
@@ -357,5 +359,6 @@ export default function HealthcarePage() {
         )}
       </div>
     </div>
+    </Protected>
   );
 }

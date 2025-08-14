@@ -4,8 +4,8 @@ services:
   # Backend API Service
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/Dockerfile.backend
     ports:
       - "3001:3001"
     environment:
@@ -31,8 +31,8 @@ services:
   # Frontend Application
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/Dockerfile.frontend
     ports:
       - "3000:3000"
     environment:
@@ -87,10 +87,8 @@ services:
     image: nginx:alpine
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
       - ./logs/nginx:/var/log/nginx
     depends_on:
       - backend
@@ -102,11 +100,13 @@ services:
   # Security Monitoring Service
   security-monitor:
     build:
-      context: ./security-monitor
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./security-monitor/Dockerfile
+    ports:
+      - "3003:3003"
     environment:
       - LOG_LEVEL=info
-      - ALERT_EMAIL=security@healthcare-platform.com
+      - ALERT_EMAIL=benzartiahmedyassine@gmail.com
     volumes:
       - ./logs:/app/logs
       - /var/log:/host/logs:ro
@@ -118,7 +118,7 @@ services:
 
   # Vulnerability Scanner
   vulnerability-scanner:
-    image: owasp/zap2docker-stable:latest
+    image: securecodebox/zap:latest
     ports:
       - "8080:8080"
     environment:

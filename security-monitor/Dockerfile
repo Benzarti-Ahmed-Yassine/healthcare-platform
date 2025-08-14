@@ -2,24 +2,32 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Install security tools
+RUN apk add --no-cache \
+    curl \
+    jq \
+    openssl \
+    nmap \
+    && npm install -g npm-audit
+
 # Copy package files
-COPY backend/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm ci --only=production
 
 # Copy source code
-COPY backend/ ./
+COPY . .
 
 # Create logs directory
 RUN mkdir -p logs
 
 # Expose port
-EXPOSE 3001
+EXPOSE 3003
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3001/api/health || exit 1
+  CMD curl -f http://localhost:3003/health || exit 1
 
 # Start the application
-CMD ["node", "src/server.js"]
+CMD ["node", "src/index.js"]

@@ -1,0 +1,46 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/healthcare/*.log
+  fields:
+    service: healthcare-platform
+  fields_under_root: true
+  multiline.pattern: '^\['
+  multiline.negate: true
+  multiline.match: after
+
+- type: log
+  enabled: true
+  paths:
+    - /var/lib/docker/containers/*/*.log
+  fields:
+    service: docker
+  fields_under_root: true
+  json.keys_under_root: true
+  json.add_error_key: true
+  json.message_key: log
+
+processors:
+- add_host_metadata:
+    when.not.contains.tags: forwarded
+- add_cloud_metadata: ~
+- add_docker_metadata: ~
+- add_kubernetes_metadata: ~
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  indices:
+    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+  template.name: "filebeat"
+  template.pattern: "filebeat-*"
+  template.enabled: false
+  template.overwrite: false
+
+setup.kibana:
+  host: "kibana:5601"
+
+setup.dashboards.enabled: true
+setup.template.enabled: true
+
+logging.level: info

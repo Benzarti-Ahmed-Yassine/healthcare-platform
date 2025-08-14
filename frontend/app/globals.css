@@ -1,7 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 
+           dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 
+           text-slate-900 dark:text-slate-100 
+           font-body antialiased transition-all duration-500 ease-in-out;
+  }
+  
+  /* Healthcare-specific scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-800 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-medical-300 dark:bg-medical-600 rounded-full hover:bg-medical-400 dark:hover:bg-medical-500;
+  }
+}
+
+@layer components {
+  /* Modern Glass Card Component */
+  .glass-card {
+    @apply relative overflow-hidden rounded-3xl 
+           bg-white/80 dark:bg-slate-800/80 
+           backdrop-blur-xl border border-white/20 dark:border-slate-700/50
+           shadow-soft dark:shadow-none
+           transition-all duration-300 ease-out;
+  }
+  
+  .glass-card::before {
+    content: '';
+    @apply absolute inset-0 
+           bg-gradient-to-br from-white/10 to-transparent 
+           dark:from-white/5 dark:to-transparent 
+           pointer-events-none;
+  }
+  
+  .glass-card:hover {
+    @apply transform scale-[1.02] shadow-medium;
+  }
+  
+  /* Enhanced Button Components */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-medical-500 to-medical-600 
+           hover:from-medical-600 hover:to-medical-700 
+           text-white font-semibold rounded-2xl 
+           shadow-medical hover:shadow-lg 
+           transition-all duration-200 ease-out 
+           transform hover:scale-[1.02] 
+           focus:outline-none focus:ring-4 focus:ring-medical-200 
+           dark:focus:ring-medical-800
+           disabled:opacity-50 disabled:cursor-not-allowed 
+           disabled:hover:scale-100;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-white dark:bg-slate-800 
+           hover:bg-slate-50 dark:hover:bg-slate-700 
+           text-slate-700 dark:text-slate-200 font-semibold rounded-2xl 
+           border border-slate-300 dark:border-slate-600 
+           shadow-soft hover:shadow-medium 
+           transition-all duration-200 ease-out 
+           transform hover:scale-[1.02] 
+           focus:outline-none focus:ring-4 focus:ring-slate-200 
+           dark:focus:ring-slate-700;
+  }
+  
+  .btn-success {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-health-500 to-health-600 
+           hover:from-health-600 hover:to-health-700 
+           text-white font-semibold rounded-2xl 
+           shadow-health hover:shadow-lg 
+           transition-all duration-200 ease-out 
+           transform hover:scale-[1.02] 
+           focus:outline-none focus:ring-4 focus:ring-health-200 
+           dark:focus:ring-health-800;
+  }
+  
+  .btn-danger {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-safety-500 to-safety-600 
+           hover:from-safety-600 hover:to-safety-700 
+           text-white font-semibold rounded-2xl 
+           shadow-lg hover:shadow-xl 
+           transition-all duration-200 ease-out 
+           transform hover:scale-[1.02] 
+           focus:outline-none focus:ring-4 focus:ring-safety-200 
+           dark:focus:ring-safety-800;
+  }
+  
+  .btn-warning {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-warning-500 to-warning-600 
+           hover:from-warning-600 hover:to-warning-700 
+           text-white font-semibold rounded-2xl 
+           shadow-lg hover:shadow-xl 
+           transition-all duration-200 ease-out 
+           transform hover:scale-[1.02] 
+           focus:outline-none focus:ring-4 focus:ring-warning-200 
+           dark:focus:ring-warning-800;
+  }
+  
+  /* Status Badge Components */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold 
+           transition-all duration-200 ease-out;
+  }
+  
+  .badge-success {
+    @apply badge bg-health-100 text-health-800 
+           dark:bg-health-800/20 dark:text-health-300 
+           border border-health-200 dark:border-health-700/50;
+  }
+  
+  .badge-danger {
+    @apply badge bg-safety-100 text-safety-800 
+           dark:bg-safety-800/20 dark:text-safety-300 
+           border border-safety-200 dark:border-safety-700/50;
+  }
+  
+  .badge-warning {
+    @apply badge bg-warning-100 text-warning-800 
+           dark:bg-warning-800/20 dark:text-warning-300 
+           border border-warning-200 dark:border-warning-700/50;
+  }
+  
+  .badge-info {
+    @apply badge bg-medical-100 text-medical-800 
+           dark:bg-medical-800/20 dark:text-medical-300 
+           border border-medical-200 dark:border-medical-700/50;
+  }
+  
+  .badge-neutral {
+    @apply badge bg-slate-100 text-slate-700 
+           dark:bg-slate-800 dark:text-slate-300 
+           border border-slate-200 dark:border-slate-700;
+  }
+  
+  /* Medical Chart/Card Styling */
+  .medical-card {
+    @apply relative p-6 rounded-3xl 
+           bg-white/90 dark:bg-slate-800/90 
+           backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50
+           shadow-soft dark:shadow-none
+           transition-all duration-300 ease-out 
+           hover:transform hover:scale-[1.01] hover:shadow-medium;
+  }
+  
+  /* Health Status Indicators */
+  .status-indicator {
+    @apply w-3 h-3 rounded-full animate-pulse-soft;
+  }
+  
+  .status-healthy {
+    @apply status-indicator bg-health-500;
+  }
+  
+  .status-warning {
+    @apply status-indicator bg-warning-500;
+  }
+  
+  .status-critical {
+    @apply status-indicator bg-safety-500;
+  }
+  
+  .status-offline {
+    @apply status-indicator bg-slate-400;
+  }
+  
+  /* Loading States */
+  .loading-skeleton {
+    @apply animate-pulse bg-slate-200 dark:bg-slate-700 rounded;
+  }
+  
+  /* Focus States */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-4 focus:ring-medical-200 
+           dark:focus:ring-medical-800 transition-all duration-200;
+  }
+  
+  /* Accessibility Improvements */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+  
+  /* Healthcare Data Visualization */
+  .chart-container {
+    @apply relative p-6 rounded-3xl 
+           bg-gradient-to-br from-white to-slate-50 
+           dark:from-slate-800 dark:to-slate-900 
+           border border-slate-200 dark:border-slate-700 
+           shadow-soft;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-medical-600 to-care-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-health {
+    @apply bg-gradient-to-r from-health-600 to-health-800 bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/10 dark:bg-slate-800/10 
+           border border-white/20 dark:border-slate-700/20;
+  }
+  
+  .shine-effect {
+    @apply relative overflow-hidden;
+  }
+  
+  .shine-effect::after {
+    content: '';
+    @apply absolute top-0 left-[-100%] w-full h-full 
+           bg-gradient-to-r from-transparent via-white/20 to-transparent 
+           transition-all duration-700 ease-out;
+  }
+  
+  .shine-effect:hover::after {
+    @apply left-[100%];
+  }
+}
+
+/* Custom animations for healthcare context */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
 }
